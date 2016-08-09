@@ -64,7 +64,7 @@ describe Chef::Provider::Package::Rubygems::CurrentGemEnvironment do
     begin
       @gem_env.with_gem_sources("http://gems.example.org") do
         sources_in_block = Gem.sources
-        raise RuntimeError, "sources should be reset even in case of an error"
+        raise "sources should be reset even in case of an error"
       end
     rescue RuntimeError
     end
@@ -78,7 +78,7 @@ describe Chef::Provider::Package::Rubygems::CurrentGemEnvironment do
     begin
       @gem_env.with_gem_sources(nil) do
         sources_in_block = Gem.sources
-        raise RuntimeError, "sources should be reset even in case of an error"
+        raise "sources should be reset even in case of an error"
       end
     rescue RuntimeError
     end
