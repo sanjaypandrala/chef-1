@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Authors:: Adam Jacob (<adam@chef.io>)
-#           Ionuț Arțăriși (<iartarisi@suse.cz>)
+#           Ionut Artarisi (<iartarisi@suse.cz>)
 # Copyright:: Copyright 2008-2016, Chef Software, Inc.
 #             Copyright 2013-2016, SUSE Linux GmbH
 # License:: Apache License, Version 2.0

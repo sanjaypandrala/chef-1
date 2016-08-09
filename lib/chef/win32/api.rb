@@ -96,7 +96,7 @@ class Chef
         host.typedef :ulong,   :HMENU # (L) Handle to a menu. http://msdn.microsoft.com/en-us/library/ms646977%28VS.85%29.aspx
         host.typedef :ulong,   :HMETAFILE # (L) Handle to a metafile. http://msdn.microsoft.com/en-us/library/dd145051%28VS.85%29.aspx
         host.typedef :ulong,   :HMODULE # (L) Handle to an instance. Same as HINSTANCE today, but was different in 16-bit Windows.
-        host.typedef :ulong,   :HMONITOR # (L) Рandle to a display monitor. WinDef.h: if(WINVER >= 0x0500) host.typedef HANDLE HMONITOR;
+        host.typedef :ulong,   :HMONITOR # (L) Handle to a display monitor. WinDef.h: if(WINVER >= 0x0500) host.typedef HANDLE HMONITOR;
         host.typedef :ulong,   :HPALETTE # (L) Handle to a palette.
         host.typedef :ulong,   :HPEN # (L) Handle to a pen. http://msdn.microsoft.com/en-us/library/dd162786%28VS.85%29.aspx
         host.typedef :long,    :HRESULT # Return code used by COM interfaces. For more info, Structure of the COM Error Codes.
@@ -111,7 +111,7 @@ class Chef
         # to perform pointer arithmetic. BaseTsd.h:
         #if defined(_WIN64) host.typedef __int64 INT_PTR; #else host.typedef int INT_PTR;
         host.typedef :int32,   :INT32 # 32-bit signed integer. The range is -2,147,483,648 through +...647 decimal.
-        host.typedef :int64,   :INT64 # 64-bit signed integer. The range is –9,223,372,036,854,775,808 through +...807
+        host.typedef :int64,   :INT64 # 64-bit signed integer. The range is -9,223,372,036,854,775,808 through +...807
         host.typedef :ushort,  :LANGID # Language identifier. For more information, see Locales. WinNT.h: #host.typedef WORD LANGID;
         # See http://msdn.microsoft.com/en-us/library/dd318716%28VS.85%29.aspx
         host.typedef :uint32,  :LCID # Locale identifier. For more information, see Locales.
@@ -120,8 +120,8 @@ class Chef
         host.typedef :pointer, :LMSTR # Pointer to null termiated string of unicode characters
         host.typedef :long,    :LONG # 32-bit signed integer. The range is -2,147,483,648 through +...647 decimal.
         host.typedef :int32,   :LONG32 # 32-bit signed integer. The range is -2,147,483,648 through +...647 decimal.
-        host.typedef :int64,   :LONG64 # 64-bit signed integer. The range is –9,223,372,036,854,775,808 through +...807
-        host.typedef :int64,   :LONGLONG # 64-bit signed integer. The range is –9,223,372,036,854,775,808 through +...807
+        host.typedef :int64,   :LONG64 # 64-bit signed integer. The range is -9,223,372,036,854,775,808 through +...807
+        host.typedef :int64,   :LONGLONG # 64-bit signed integer. The range is -9,223,372,036,854,775,808 through +...807
         host.typedef :long,    :LONG_PTR # Signed long type for pointer precision. Use when casting a pointer to a long to
         # perform pointer arithmetic. BaseTsd.h:
         #if defined(_WIN64) host.typedef __int64 LONG_PTR; #else host.typedef long LONG_PTR;
@@ -215,7 +215,7 @@ class Chef
         # See SCM Handles http://msdn.microsoft.com/en-us/library/ms685104%28VS.85%29.aspx
         host.typedef :pointer, :SC_LOCK # Lock to a service control manager database. For more information, see SCM Handles.
         host.typedef :ulong,   :SERVICE_STATUS_HANDLE # (L) Handle to a service status value. See SCM Handles.
-        host.typedef :short,   :SHORT # A 16-bit integer. The range is –32768 through 32767 decimal.
+        host.typedef :short,   :SHORT # A 16-bit integer. The range is -32768 through 32767 decimal.
         host.typedef :ulong,   :SIZE_T #  The maximum number of bytes to which a pointer can point. Use for a count that must span the full range of a pointer.
         host.typedef :long,    :SSIZE_T # Signed SIZE_T.
         host.typedef :char,    :TBYTE # A WCHAR if UNICODE is defined, a CHAR otherwise.TCHAR:
