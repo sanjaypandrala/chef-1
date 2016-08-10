@@ -18,33 +18,24 @@
 
 require "spec_helper"
 
-describe Chef::Resource::AptRepository do
+describe Chef::Resource::YumRepository do
   let(:node) { Chef::Node.new }
   let(:events) { Chef::EventDispatch::Dispatcher.new }
   let(:run_context) { Chef::RunContext.new(node, {}, events) }
-  let(:resource) { Chef::Resource::AptRepository.new("multiverse", run_context) }
+  let(:resource) { Chef::Resource::YumRepository.new("multiverse", run_context) }
 
-  it "should create a new Chef::Resource::AptUpdate" do
+  it "should create a new Chef::Resource::YumRepository" do
     expect(resource).to be_a_kind_of(Chef::Resource)
-    expect(resource).to be_a_kind_of(Chef::Resource::AptRepository)
+    expect(resource).to be_a_kind_of(Chef::Resource::YumRepository)
   end
 
-  it "the default keyserver should be keyserver.ubuntu.com" do
-    expect(resource.keyserver).to eql("keyserver.ubuntu.com")
-  end
-
-  it "the default distribution should be nillable" do
-    expect(resource.distribution(nil)).to eql(nil)
-    expect(resource.distribution).to eql(nil)
-  end
-
-  it "should resolve to a Noop class when apt-get is not found" do
-    expect(Chef::Mixin::Which).to receive(:which).with("apt-get").and_return(false)
+  it "should resolve to a Noop class when yum is not found" do
+    expect(Chef::Mixin::Which).to receive(:which).with("yum").and_return(false)
     expect(resource.provider_for_action(:add)).to be_a(Chef::Provider::Noop)
   end
 
-  it "should resolve to a AptRepository class when apt-get is found" do
-    expect(Chef::Mixin::Which).to receive(:which).with("apt-get").and_return(true)
-    expect(resource.provider_for_action(:add)).to be_a(Chef::Provider::AptRepository)
+  it "should resolve to a AptRepository class when yum is found" do
+    expect(Chef::Mixin::Which).to receive(:which).with("yum").and_return(true)
+    expect(resource.provider_for_action(:add)).to be_a(Chef::Provider::YumRepository)
   end
 end
