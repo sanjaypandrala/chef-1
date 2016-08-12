@@ -154,8 +154,15 @@ class Chef
           new_resource.home && Pathname.new(@current_resource.home).cleanpath != Pathname.new(new_resource.home).cleanpath
         end
 
+        def supports_manage_home?
+          # nil means true (default) here
+          new_resource.supports[:manage_home].nil? ? true : new_resource.supports[:manage_home]
+        end
+
         def managing_home_dir?
-          new_resource.manage_home || new_resource.supports[:manage_home]
+          # nil also means true (default) here
+          supports_manage_home? &&
+            ( new_resource.manage_home.nil? ? true : new_resource.manage_home )
         end
 
       end

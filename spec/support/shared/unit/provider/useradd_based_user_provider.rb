@@ -102,9 +102,9 @@ shared_examples_for "a useradd-based user provider" do |supported_useradd_option
 
     describe "when the resource has a different home directory and supports home directory management" do
       before do
-        allow(@new_resource).to receive(:home).and_return("/wowaweea")
-        allow(@new_resource).to receive(:supports).and_return({ :manage_home => true,
-                                                                :non_unique => false })
+        @new_resource.home "/wowaweea"
+        @new_resource.supports( { manage_home: true, non_unique: false } )
+        @new_resource.manage_home true
       end
 
       it "should set -m -d /homedir" do
@@ -248,6 +248,7 @@ shared_examples_for "a useradd-based user provider" do |supported_useradd_option
     it "should run userdel with the new resources user name and -r if manage_home is true" do
       @new_resource.supports({ :manage_home => true,
                                :non_unique => false })
+      @new_resource.manage_home true
       expect(provider).to receive(:shell_out!).with("userdel", "-r", @new_resource.username).and_return(true)
       provider.remove_user
     end

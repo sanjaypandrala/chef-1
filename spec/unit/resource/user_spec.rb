@@ -46,8 +46,8 @@ describe Chef::Resource::User, "initialize" do
     expect(@resource.action).to eql([:create])
   end
 
-  it "should set supports[:manage_home] to false" do
-    expect(@resource.supports[:manage_home]).to eql(false)
+  it "should set supports[:manage_home] to nil" do
+    expect(@resource.supports[:manage_home]).to eql(nil)
   end
 
   it "should set supports[:non_unique] to false" do

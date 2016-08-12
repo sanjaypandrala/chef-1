@@ -49,13 +49,94 @@ describe Chef::Provider::User::Useradd do
     end
   end
 
-  describe "when we do not support home directory management" do
-    before do
-      @new_resource.manage_home(false)
+  describe "manage_home behavior" do
+    before(:each) do
+      @new_resource = Chef::Resource::User.new("adam", @run_context)
+      @current_resource = Chef::Resource::User.new("adam", @run_context)
     end
 
-    it "should set useradd -M" do
-      @provider.useradd_options.should == " -M"
+    it "by default manage_home is nil and supports[:manage_home] is nil and we do not -M" do
+      expect( @new_resource.manage_home ).to be nil
+      expect( @new_resource.supports[:manage_home] ).to be nil
+      expect( provider.supports_manage_home? ).to be true
+      expect( provider.managing_home_dir? ).to be true
+      expect( provider.useradd_options ).to eql([])
+    end
+
+    it "setting manage home to true is the same as the default beahvior" do
+      @new_resource.manage_home true
+      expect( @new_resource.manage_home ).to be true
+      expect( @new_resource.supports[:manage_home] ).to be nil
+      expect( provider.supports_manage_home? ).to be true
+      expect( provider.managing_home_dir? ).to be true
+      expect( provider.useradd_options ).to eql([])
+    end
+
+    it "setting manage home to false adds -M" do
+      @new_resource.manage_home false
+      expect( @new_resource.manage_home ).to be false
+      expect( @new_resource.supports[:manage_home] ).to be nil
+      expect( provider.supports_manage_home? ).to be true
+      expect( provider.managing_home_dir? ).to be false
+      expect( provider.useradd_options ).to eql(["-M"])
+    end
+
+    it "supports[:manage_home] behaves the same as default when manage_home is nil" do
+      expect( @new_resource.manage_home ).to be nil
+      @new_resource.supports[:manage_home] = true
+      expect( @new_resource.supports[:manage_home] ).to be true
+      expect( provider.supports_manage_home? ).to be true
+      expect( provider.managing_home_dir? ).to be true
+      expect( provider.useradd_options ).to eql([])
+    end
+
+    it "supports[:manage_home] behaves the same as default when manage_home is true" do
+      @new_resource.manage_home true
+      @new_resource.supports[:manage_home] = true
+      expect( @new_resource.manage_home ).to be true
+      expect( @new_resource.supports[:manage_home] ).to be true
+      expect( provider.supports_manage_home? ).to be true
+      expect( provider.managing_home_dir? ).to be true
+      expect( provider.useradd_options ).to eql([])
+    end
+
+    it "supports[:manage_home] behaves the same as default when manage_home is false" do
+      @new_resource.manage_home false
+      @new_resource.supports[:manage_home] = true
+      expect( @new_resource.manage_home ).to be false
+      expect( @new_resource.supports[:manage_home] ).to be true
+      expect( provider.supports_manage_home? ).to be true
+      expect( provider.managing_home_dir? ).to be false
+      expect( provider.useradd_options ).to eql(["-M"])
+    end
+
+    it "supports[:manage_home] to false does not manage home when manage_home is nil" do
+      expect( @new_resource.manage_home ).to be nil
+      @new_resource.supports[:manage_home] = false
+      expect( @new_resource.supports[:manage_home] ).to be false
+      expect( provider.supports_manage_home? ).to be false
+      expect( provider.managing_home_dir? ).to be false
+      expect( provider.useradd_options ).to eql(["-M"])
+    end
+
+    it "supports[:manage_home] to false does not manage home when manage_home is true" do
+      @new_resource.manage_home true
+      @new_resource.supports[:manage_home] = false
+      expect( @new_resource.manage_home ).to be true
+      expect( @new_resource.supports[:manage_home] ).to be false
+      expect( provider.supports_manage_home? ).to be false
+      expect( provider.managing_home_dir? ).to be false
+      expect( provider.useradd_options ).to eql(["-M"])
+    end
+
+    it "supports[:manage_home] to false does not manage home when manage_home is false" do
+      @new_resource.manage_home false
+      @new_resource.supports[:manage_home] = false
+      expect( @new_resource.manage_home ).to be false
+      expect( @new_resource.supports[:manage_home] ).to be false
+      expect( provider.supports_manage_home? ).to be false
+      expect( provider.managing_home_dir? ).to be false
+      expect( provider.useradd_options ).to eql(["-M"])
     end
   end
 end

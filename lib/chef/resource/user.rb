@@ -38,12 +38,12 @@ class Chef
         @shell = nil
         @password = nil
         @system = false
-        @manage_home = false
+        @manage_home = nil
         @force = false
         @non_unique = false
         @supports = {
-          :manage_home => true,
-          :non_unique => false,
+          manage_home: nil,
+          non_unique: false,
         }
         @iterations = 27855
         @salt = nil
@@ -154,7 +154,6 @@ class Chef
           :kind_of => [ TrueClass, FalseClass ]
         )
       end
-
     end
   end
 end
