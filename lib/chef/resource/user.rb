@@ -154,6 +154,16 @@ class Chef
           :kind_of => [ TrueClass, FalseClass ]
         )
       end
+
+      def supports(args = {})
+        Chef.log_deprecation "setting supports on the user resource is deprecated"
+        super
+      end
+
+      def supports=(args)
+        Chef.log_deprecation "setting supports on the user resource is deprecated"
+        super
+      end
     end
   end
 end

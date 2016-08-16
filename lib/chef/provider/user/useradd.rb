@@ -116,15 +116,15 @@ class Chef
                 update_options(field, option, opts)
               end
               if updating_home?
+                opts << "-d" << new_resource.home
                 if managing_home_dir?
                   Chef::Log.debug("#{new_resource} managing the users home directory")
-                  opts << "-d" << new_resource.home << "-m"
+                  opts << "-m"
                 else
                   Chef::Log.debug("#{new_resource} setting home to #{new_resource.home}")
-                  opts << "-d" << new_resource.home
                 end
               end
-              opts << "-o" if new_resource.non_unique || new_resource.supports[:non_unique]
+              opts << "-o" if new_resource.non_unique
               opts
             end
         end
@@ -154,15 +154,9 @@ class Chef
           new_resource.home && Pathname.new(@current_resource.home).cleanpath != Pathname.new(new_resource.home).cleanpath
         end
 
-        def supports_manage_home?
-          # nil means true (default) here
-          new_resource.supports[:manage_home].nil? ? true : new_resource.supports[:manage_home]
-        end
-
         def managing_home_dir?
-          # nil also means true (default) here
-          supports_manage_home? &&
-            ( new_resource.manage_home.nil? ? true : new_resource.manage_home )
+          # set the default for this class to true, but allow the user to override
+          new_resource.manage_home.nil? ? true : new_resource.manage_home
         end
 
       end
