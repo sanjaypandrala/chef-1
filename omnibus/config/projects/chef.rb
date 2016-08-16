@@ -52,9 +52,11 @@ override :"ruby-windows-devkit", version: "4.5.2-20111229-1559" if windows? && w
 
 dependency "preparation"
 
-# All actual dependencies are in chef-complete, so that the addition
-# or removal of a dependency doesn't dirty the entire project file
-dependency "chef-complete"
+if %w{chef-build/ubuntu-12.04,x86_64 chef-build/el-6,x86_64 chef-build/windows-2008r2,x86_64 chef-build/windows-2008r2,i386}.include?(ENV["STAGE_NAME"])
+  # All actual dependencies are in chef-complete, so that the addition
+  # or removal of a dependency doesn't dirty the entire project file
+  dependency "chef-complete"
+end
 
 package :rpm do
   signing_passphrase ENV["OMNIBUS_RPM_SIGNING_PASSPHRASE"]
